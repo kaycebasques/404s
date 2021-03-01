@@ -1,0 +1,10 @@
+{
+  "path": "/Users/kayce/Repositories/developer.chrome.com/site/en/docs/devtools/css",
+  "url": "http://localhost:8080/docs/devtools/css",
+  "content": "article.post",
+  "removals": [
+    "div.dates",
+    "a.heading-link",
+    "div.toc-container"
+  ]
+}

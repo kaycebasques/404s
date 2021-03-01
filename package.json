@@ -1,0 +1,14 @@
+{
+  "name": "404s",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "find": "node index.js;"
+  },
+  "dependencies": {
+    "puppeteer": "5.2.1"
+  },
+  "engines": {
+    "node": "12.18.4"
+  }
+}
