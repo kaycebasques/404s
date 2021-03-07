@@ -31,8 +31,8 @@ function union(setA, setB) {
   return _union
 }
 
-async function find() {
-  let targets = new Set();
+async function audit() {
+  let urls = {};
   // Recursively collect all Markdown files in the target directory.
   const files = await getFiles(config.path);
   const markdown = files.filter(file => file.endsWith('index.md'));
@@ -49,11 +49,10 @@ async function find() {
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
   for (url in docs) {
-    console.log(url);
-    const current = docs[url];
+    console.log(`in ${url}`);
     await page.goto(url);
     try {
-      await page.waitForSelector(config.content, {timeout: 5000});
+      await page.waitForSelector(config.content, {timeout: 3000});
     } catch (error) {
       console.error(error);
       continue;
@@ -68,12 +67,29 @@ async function find() {
       });
       return [...set];
     });
-    console.log([...links]);
-    targets = union(targets, new Set(links));
+    links.forEach(link => {
+      if (!urls[link]) urls[link] = undefined;
+    });
+    const samePageLinks = links.filter(link => link.includes(url));
+    // console.log(samePageLinks);
+    const sections = samePageLinks.map(link => link.substring(link.indexOf('#')));
+    for (let i = 0; i < sections.length; i++) {
+      try {
+        const section = sections[i];
+        const node = await page.$(section);
+        if (!node) console.log(`${section} not found!`);
+      } catch (error) {
+        console.error(`error while checking ${section}`);
+      }
+      
+    }
     // Now, while you're still on this page, check intra-page links.
   }
   // Now check inter-page links.
   await browser.close();
 }
 
-find();
+audit();
+
+// Should only visit each page once
+// Should visit section links while on that page
