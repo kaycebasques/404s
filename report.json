@@ -1,0 +1,42 @@
+{
+  "http://localhost:8080/docs/devtools/accessibility/focus/": {
+    "links": {}
+  },
+  "http://localhost:8080/docs/devtools/accessibility/navigation/": {
+    "links": {
+      "http://localhost:8080/docs/devtools/": true,
+      "http://localhost:8080/docs/devtools/accessibility/reference/": true,
+      "https://www.w3.org/TR/wai-aria-1.1/#tablist": true,
+      "http://localhost:8080/docs/devtools/dom/": false,
+      "http://localhost:8080/docs/devtools/css/": true,
+      "http://localhost:8080/docs/devtools/console/": true,
+      "http://localhost:8080/docs/devtools/shortcuts/": true,
+      "http://localhost:8080/docs/devtools/open/": true,
+      "http://localhost:8080/docs/devtools/ui#command-menu": false,
+      "https://www.w3.org/TR/wai-aria-1.1/#tree": true,
+      "http://localhost:8080/docs/devtools/dom#keynav": false,
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/:active": true,
+      "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus": true,
+      "http://localhost:8080/docs/devtools/accessibility/navigation/#inspect": true,
+      "http://localhost:8080/docs/devtools/shortcuts#styles": false,
+      "http://localhost:8080/docs/devtools/css/reference#computed": true,
+      "http://localhost:8080/docs/devtools/accessibility/reference#pane": false,
+      "https://bugs.chromium.org/p/chromium/issues/detail?id=868480": true
+    }
+  },
+  "http://localhost:8080/docs/devtools/accessibility/reference/": {
+    "links": {
+      "http://localhost:8080/web/fundamentals/accessibility/": false,
+      "http://localhost:8080/docs/devtools/accessibility/navigation/": true,
+      "http://localhost:8080/web/fundamentals/accessibility/semantics-builtin#screen_readers": false,
+      "http://localhost:8080/web/fundamentals/accessibility/how-to-review/": false,
+      "http://localhost:8080/docs/devtools/accessibility/reference/#contrast": true,
+      "https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd": true,
+      "http://localhost:8080/web/fundamentals/accessibility/semantics-builtin/the-accessibility-tree/": false,
+      "http://localhost:8080/docs/devtools/accessibility/reference/#pane": true,
+      "http://localhost:8080/docs/devtools/css/reference#computed": true,
+      "https://www.w3.org/WAI/WCAG21/quickref/#contrast-minimum": true,
+      "https://www.w3.org/WAI/WCAG21/quickref/#contrast-enhanced": true
+    }
+  }
+}

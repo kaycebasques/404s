@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const { readdir } = require('fs').promises;
 const puppeteer = require('puppeteer');
 const config = require('./config.json');
+const { writeFileSync } = require('fs');
 
 // https://stackoverflow.com/a/45130990
 async function getFiles(dir) {
@@ -31,62 +32,123 @@ function union(setA, setB) {
   return _union
 }
 
+async function getSectionIds(page) {
+  return await page.$$eval(`*[id]`, nodes => {
+    const ids = [];
+    nodes.forEach(node => {
+      if (node.id) ids.push(node.id);
+    })
+    return ids;
+  });
+}
+
+async function getLinks(page, selector) {
+  return await page.$$eval(`${selector} a`, links => {
+    const set = new Set();
+    links.forEach(link => {
+      const url = new URL(link);
+      set.add(`${url.origin}${url.pathname}${url.search}${url.hash}`);
+    });
+    return [...set];
+  });
+}
+
+function parse(link) {
+  const output = {};
+  output.page = link;
+  if (link.includes('#')) {
+    output.page = link.substring(0, link.indexOf('#'));
+    output.section = link.substring(link.indexOf('#') + 1);
+  }
+  return output;
+}
+
 async function audit() {
-  let urls = {};
+  let data = {
+    docs: {},
+    links: {}
+  };
   // Recursively collect all Markdown files in the target directory.
   const files = await getFiles(config.path);
   const markdown = files.filter(file => file.endsWith('index.md'));
-  // TODO(kaycebasques): We need to know the pages we've audited,
-  // and the links on each page (so we know where to go if something is broken)
-  // but we don't want to visit pages more than once.
-  const docs = {};
-  // Map the file paths to URLs.
   markdown.forEach(file => {
     let url = file.replace(config.path, config.url);
     url = url.replace('index.md', '');
-    docs[url] = {};
+    data.docs[url] = {
+      links: null
+    };
+    data.links[url] = {
+      ok: null,
+      sections: null
+    };
   });
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
-  for (url in docs) {
-    console.log(`in ${url}`);
-    await page.goto(url);
+  page.setDefaultTimeout(3000);
+  // First, we crawl all of the target pages and collect the IDs of all
+  // the sections that actually exist on these pages as all of the links
+  // on each page. 
+  for (url in data.docs) {
     try {
-      await page.waitForSelector(config.content, {timeout: 3000});
+      await page.goto(url);
+      await page.waitForSelector(config.content);
     } catch (error) {
       console.error(error);
+      data.links[url].ok = false;
+      data.links[url].sections = null;
+      data.docs[url].links = null;
       continue;
     }
     await removeNodes(page);
-    // Get all of the links on the page.
-    const links = await page.$$eval(`${config.content} a`, links => {
-      const set = new Set();
-      links.forEach(link => {
-        const url = new URL(link);
-        set.add(`${url.origin}${url.pathname}${url.hash}`);
-      });
-      return [...set];
-    });
+    data.links[url].sections = await getSectionIds(page);
+    data.links[url].ok = true;
+    const links = await getLinks(page, config.content);
+    data.docs[url].links = {};
     links.forEach(link => {
-      if (!urls[link]) urls[link] = undefined;
+      data.docs[url].links[link] = null;
     });
-    const samePageLinks = links.filter(link => link.includes(url));
-    // console.log(samePageLinks);
-    const sections = samePageLinks.map(link => link.substring(link.indexOf('#')));
-    for (let i = 0; i < sections.length; i++) {
-      try {
-        const section = sections[i];
-        const node = await page.$(section);
-        if (!node) console.log(`${section} not found!`);
-      } catch (error) {
-        console.error(`error while checking ${section}`);
-      }
-      
-    }
-    // Now, while you're still on this page, check intra-page links.
   }
-  // Now check inter-page links.
+
+  for (doc in data.docs) {
+    if (!data.docs[doc].links) continue;
+    const links = Object.keys(data.docs[doc].links);
+    for (let i = 0; i < links.length; i++) {
+      let response;
+      let id = links[i];
+      if (id.includes('#')) id = id.substring(0, id.indexOf('#'));
+      if (!data.links[id]) {
+        data.links[id] = {
+          ok: null,
+          sections: null
+        };
+        try {
+          response = await page.goto(id);
+        } catch (error) {
+          console.error(error);
+          data.links[id].ok = false;
+          data.links[id].sections = null;
+          continue;
+        }
+        const ok = response.status() >= 200 && response.status() <= 300;
+        data.links[id].ok = ok;
+        ok ? data.links[id].sections = await getSectionIds(page) : data.links[id].sections = null;
+      }
+    }
+  }
+
+  for (doc in data.docs) {
+    for (link in data.docs[doc].links) {
+      const { page, section } = parse(link);
+      if (section) {
+        if (!data.links[page].sections) data.docs[doc].links[link] = false;
+        if (data.links[page].sections) data.docs[doc].links[link] = data.links[page].sections.includes(section);
+      }
+      if (!section) data.docs[doc].links[link] = data.links[page].ok;
+    }
+  }
+
   await browser.close();
+  writeFileSync('./report.json', JSON.stringify(data.docs, null, 2));
 }
 
 audit();

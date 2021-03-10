@@ -1,6 +1,6 @@
 {
-  "path": "/Users/kayce/Repositories/developer.chrome.com/site/en/docs/devtools/css",
-  "url": "http://localhost:8080/docs/devtools/css",
+  "path": "/Users/kayce/Repositories/developer.chrome.com/site/en/docs/devtools/accessibility",
+  "url": "http://localhost:8080/docs/devtools/accessibility",
   "content": "article.post",
   "removals": [
     "div.dates",
