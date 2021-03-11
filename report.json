@@ -1,42 +1,103 @@
 {
-  "http://localhost:8080/docs/devtools/accessibility/focus/": {
-    "links": {}
-  },
-  "http://localhost:8080/docs/devtools/accessibility/navigation/": {
+  "http://localhost:8080/docs/devtools/javascript/background-services/": {
     "links": {
-      "http://localhost:8080/docs/devtools/": true,
-      "http://localhost:8080/docs/devtools/accessibility/reference/": true,
-      "https://www.w3.org/TR/wai-aria-1.1/#tablist": true,
-      "http://localhost:8080/docs/devtools/dom/": false,
-      "http://localhost:8080/docs/devtools/css/": true,
-      "http://localhost:8080/docs/devtools/console/": true,
-      "http://localhost:8080/docs/devtools/shortcuts/": true,
+      "https://en.wikipedia.org/wiki/background_process": true,
+      "http://localhost:8080/docs/devtools/javascript/background-services/#fetch": true,
+      "http://localhost:8080/docs/devtools/javascript/background-services/#sync": true,
+      "http://localhost:8080/docs/devtools/javascript/background-services/#notifications": true,
+      "http://localhost:8080/docs/devtools/javascript/background-services/#push": true,
+      "http://localhost:8080/web/updates/2018/12/background-fetch/": false,
+      "https://web.dev/service-workers-cache-storage/": true,
       "http://localhost:8080/docs/devtools/open/": true,
-      "http://localhost:8080/docs/devtools/ui#command-menu": false,
-      "https://www.w3.org/TR/wai-aria-1.1/#tree": true,
-      "http://localhost:8080/docs/devtools/dom#keynav": false,
-      "https://developer.mozilla.org/en-US/docs/Web/CSS/:active": true,
-      "https://developer.mozilla.org/en-US/docs/Web/CSS/:focus": true,
-      "http://localhost:8080/docs/devtools/accessibility/navigation/#inspect": true,
-      "http://localhost:8080/docs/devtools/shortcuts#styles": false,
-      "http://localhost:8080/docs/devtools/css/reference#computed": true,
-      "http://localhost:8080/docs/devtools/accessibility/reference#pane": false,
-      "https://bugs.chromium.org/p/chromium/issues/detail?id=868480": true
+      "http://localhost:8080/web/updates/2015/12/background-sync/": false,
+      "https://developer.mozilla.org/en-us/docs/web/api/push_api": true,
+      "https://developer.mozilla.org/en-us/docs/web/api/notifications_api": true
     }
   },
-  "http://localhost:8080/docs/devtools/accessibility/reference/": {
+  "http://localhost:8080/docs/devtools/javascript/breakpoints/": {
     "links": {
-      "http://localhost:8080/web/fundamentals/accessibility/": false,
-      "http://localhost:8080/docs/devtools/accessibility/navigation/": true,
-      "http://localhost:8080/web/fundamentals/accessibility/semantics-builtin#screen_readers": false,
-      "http://localhost:8080/web/fundamentals/accessibility/how-to-review/": false,
-      "http://localhost:8080/docs/devtools/accessibility/reference/#contrast": true,
-      "https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd": true,
-      "http://localhost:8080/web/fundamentals/accessibility/semantics-builtin/the-accessibility-tree/": false,
-      "http://localhost:8080/docs/devtools/accessibility/reference/#pane": true,
-      "http://localhost:8080/docs/devtools/css/reference#computed": true,
-      "https://www.w3.org/WAI/WCAG21/quickref/#contrast-minimum": true,
-      "https://www.w3.org/WAI/WCAG21/quickref/#contrast-enhanced": true
+      "http://localhost:8080/docs/devtools/javascript/": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/#loc": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/#conditional-loc": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/#dom": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/#xhr": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/#event-listeners": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/#exceptions": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/#function": true,
+      "https://developer.mozilla.org/en-us/docs/web/api/fetch_api": true
+    }
+  },
+  "http://localhost:8080/docs/devtools/javascript/disable/": {
+    "links": {
+      "http://localhost:8080/docs/devtools/open/": true
+    }
+  },
+  "http://localhost:8080/docs/devtools/javascript/guides/blackbox-chrome-extension-scripts/": {
+    "links": {
+      "http://localhost:8080/docs/devtools/javascript#code-stepping": false
+    }
+  },
+  "http://localhost:8080/docs/devtools/javascript/": {
+    "links": {
+      "https://googlechrome.github.io/devtools-samples/debug-js/get-started": true,
+      "https://support.google.com/chrome/answer/95464": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/": true,
+      "http://localhost:8080/docs/devtools/javascript/reference#stepping": false
+    }
+  },
+  "http://localhost:8080/docs/devtools/javascript/reference/": {
+    "links": {
+      "http://localhost:8080/docs/devtools/javascript/": true,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/": true,
+      "http://localhost:8080/docs/devtools/customize/#settings": true,
+      "http://localhost:8080/docs/devtools/snippets/": false,
+      "http://localhost:8080/docs/devtools/javascript/disable/": true
+    }
+  },
+  "http://localhost:8080/docs/devtools/javascript/snippets/": {
+    "links": {
+      "http://localhost:8080/docs/devtools/console/": true,
+      "http://localhost:8080/docs/devtools/sources/": true,
+      "https://en.wikipedia.org/wiki/bookmarklet": true,
+      "https://developer.mozilla.org/en-us/docs/tools/scratchpad": true,
+      "http://localhost:8080/docs/devtools/javascript/snippets/#open": true,
+      "http://localhost:8080/docs/devtools/javascript/snippets/#rename": true
+    }
+  },
+  "http://localhost:8080/docs/devtools/javascript/source-maps/": {
+    "links": {
+      "http://localhost:8080/web/tools/setup/setup-preprocessors#supported_preprocessors": false,
+      "http://localhost:8080/web/tools/setup/setup-preprocessors#debugging-and-editing-preprocessed-content": false,
+      "https://github.com/ryanseddon/source-map/wiki/source-maps:-languages,-tools-and-other-info": true,
+      "https://babeljs.io/": true,
+      "https://github.com/google/traceur-compiler/wiki/getting-started": true,
+      "https://github.com/google/closure-compiler": true,
+      "http://www.typescriptlang.org/": true,
+      "http://coffeescript.org/": true,
+      "https://www.dartlang.org/": true,
+      "https://github.com/mishoo/uglifyjs": true,
+      "http://localhost:8080/docs/devtools/debug/breakpoints/step-code/": false,
+      "http://www.thecssninja.com/demo/source_mapping/compile.html": true
+    }
+  },
+  "http://localhost:8080/docs/devtools/javascript/step-code/": {
+    "links": {
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/": true,
+      "http://localhost:8080/docs/devtools/javascript/reference#stepping": false,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints#exceptions": false,
+      "http://localhost:8080/docs/devtools/javascript/reference#scope": false,
+      "http://stackoverflow.com/a/36545767/1669860": true,
+      "http://localhost:8080/docs/devtools/javascript/reference#call-stack": false,
+      "http://localhost:8080/docs/devtools/javascript/reference#blackbox": false,
+      "http://localhost:8080/docs/devtools/javascript/reference#edit": false,
+      "http://localhost:8080/docs/devtools/javascript/reference#threads": false,
+      "http://mdn.github.io/simple-web-worker/": true
+    }
+  },
+  "http://localhost:8080/docs/devtools/javascript/watch-variables/": {
+    "links": {
+      "http://localhost:8080/docs/devtools/javascript/reference#watch": false,
+      "http://localhost:8080/docs/devtools/javascript/breakpoints/": true
     }
   }
 }
