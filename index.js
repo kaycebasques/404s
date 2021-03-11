@@ -33,13 +33,18 @@ function union(setA, setB) {
 }
 
 async function getSectionIds(page) {
-  return await page.$$eval(`*[id]`, nodes => {
-    const ids = [];
-    nodes.forEach(node => {
-      if (node.id) ids.push(node.id.toLowerCase());
-    })
-    return ids;
-  });
+  try {
+    return await page.$$eval(`*[id]`, nodes => {
+      const ids = [];
+      nodes.forEach(node => {
+        if (node.id) ids.push(node.id.toLowerCase());
+      })
+      return ids;
+    });
+  } catch (error) {
+    console.error(`Error while getting section IDs for ${page.url()}`);
+    return [];
+  }
 }
 
 async function getLinks(page, selector) {
@@ -56,6 +61,7 @@ async function getLinks(page, selector) {
 function parse(link) {
   const output = {};
   output.page = link;
+  // TODO(kaycebasques): Handle this edge case: https://groups.google.com/forum/#!forum/google-chrome-developer-tools
   if (link.includes('#')) {
     output.page = link.substring(0, link.indexOf('#'));
     output.section = link.substring(link.indexOf('#') + 1);
@@ -84,7 +90,7 @@ async function audit() {
   });
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
-  page.setDefaultTimeout(5000);
+  page.setDefaultTimeout(0);
   // First, we crawl all of the target pages and collect the IDs of all
   // the sections that actually exist on these pages as all of the links
   // on each page. 
