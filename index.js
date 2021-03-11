@@ -36,7 +36,7 @@ async function getSectionIds(page) {
   return await page.$$eval(`*[id]`, nodes => {
     const ids = [];
     nodes.forEach(node => {
-      if (node.id) ids.push(node.id);
+      if (node.id) ids.push(node.id.toLowerCase());
     })
     return ids;
   });
@@ -47,7 +47,7 @@ async function getLinks(page, selector) {
     const set = new Set();
     links.forEach(link => {
       const url = new URL(link);
-      set.add(`${url.origin}${url.pathname}${url.search}${url.hash}`);
+      set.add(`${url.origin.toLowerCase()}${url.pathname.toLowerCase()}${url.search.toLowerCase()}${url.hash.toLowerCase()}`);
     });
     return [...set];
   });
@@ -84,7 +84,7 @@ async function audit() {
   });
   const browser = await puppeteer.launch({headless: false});
   const page = await browser.newPage();
-  page.setDefaultTimeout(3000);
+  page.setDefaultTimeout(5000);
   // First, we crawl all of the target pages and collect the IDs of all
   // the sections that actually exist on these pages as all of the links
   // on each page. 
@@ -93,6 +93,7 @@ async function audit() {
       await page.goto(url);
       await page.waitForSelector(config.content);
     } catch (error) {
+      console.error(`\nError: ${url}`);
       console.error(error);
       data.links[url].ok = false;
       data.links[url].sections = null;
@@ -124,6 +125,7 @@ async function audit() {
         try {
           response = await page.goto(id);
         } catch (error) {
+          console.error(`\nError: ${id}`);
           console.error(error);
           data.links[id].ok = false;
           data.links[id].sections = null;
@@ -138,7 +140,9 @@ async function audit() {
 
   for (doc in data.docs) {
     for (link in data.docs[doc].links) {
-      const { page, section } = parse(link);
+      let { page, section } = parse(link);
+      // Handle trailing slashes.
+      if (!data.links[page] && data.links[`${page}/`]) page = `${page}/`;
       if (section) {
         if (!data.links[page].sections) data.docs[doc].links[link] = false;
         if (data.links[page].sections) data.docs[doc].links[link] = data.links[page].sections.includes(section);
