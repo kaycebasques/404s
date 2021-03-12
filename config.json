@@ -1,6 +1,7 @@
 {
-  "path": "/Users/kayce/Repositories/developer.chrome.com/site/en/docs/devtools/javascript",
-  "url": "http://localhost:8080/docs/devtools/javascript",
+  "path": "/Users/kayce/Repositories/developer.chrome.com/site/en/blog",
+  "pattern": "new-in-devtools",
+  "url": "http://localhost:8080/blog",
   "content": "article.post",
   "removals": [
     "div.dates",

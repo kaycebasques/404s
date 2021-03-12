@@ -96,6 +96,7 @@ async function audit() {
   // on each page. 
   for (url in data.docs) {
     try {
+      if (config.pattern && !url.includes(config.pattern)) continue;
       await page.goto(url);
       await page.waitForSelector(config.content);
     } catch (error) {
